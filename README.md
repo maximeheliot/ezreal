@@ -1,2 +1,2 @@
-# ezrealcore
+# ezreal
  
