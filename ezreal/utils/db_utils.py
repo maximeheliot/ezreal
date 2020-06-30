@@ -24,11 +24,11 @@ except FileNotFoundError:
           f'Please input your db choice: [postgresql/sqlite]')
     db_choice = input()
     if db_choice == 'sqlite':
-        db_config['DEFAULT'] = {'db_type': db_choice}
+        db_config['general'] = {'db_type': db_choice}
         database_location = path.join(base_folder, 'ezreal_core_schema.db')
         print(f'SQLite database setup complete.')
     elif db_choice == 'postgresql':
-        db_config['DEFAULT'] = {'db_type': db_choice}
+        db_config['general'] = {'db_type': db_choice}
         db_config['connection_info'] = {}
         print(f'username:')
         db_config['connection_info']['username'] = getuser()
@@ -47,10 +47,10 @@ except FileNotFoundError:
         db_config.write(configfile)
 
 
-if db_config['DEFAULT']['db_type'] == 'sqlite':
-    db_url = db_config['DEFAULT']['db_type'] + ':///{}'.format(database_location)
-elif db_config['DEFAULT']['db_type'] == 'postgresql':
-    db_url = db_config['DEFAULT']['db_type'] + '://' + db_config['connection_info']['username'] + ':' \
+if db_config['general']['db_type'] == 'sqlite':
+    db_url = db_config['general']['db_type'] + ':///{}'.format(database_location)
+elif db_config['general']['db_type'] == 'postgresql':
+    db_url = db_config['general']['db_type'] + '://' + db_config['connection_info']['username'] + ':' \
              + db_config['connection_info']['password'] + '@' + db_config['connection_info']['host'] \
              + ':' + db_config['connection_info']['port'] + '/' + db_config['connection_info']['database']
 
