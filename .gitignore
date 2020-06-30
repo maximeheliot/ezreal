@@ -1,2 +1,4 @@
 .idea/
 *.pyc
+dist/
+ezreal/ezreal.egg-info

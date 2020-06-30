@@ -15,7 +15,7 @@ Base = declarative.declarative_base()
 # Opening the database
 try:
     with open(config_location) as configfile:
-        db_config.read(configfile)
+        db_config.read_file(configfile)
 except FileNotFoundError:
     print(f'Database config file not found. No database configured.\n'
           f'This program is able to setup a database starting kit in SQLite.\n'
@@ -23,12 +23,12 @@ except FileNotFoundError:
           f'It will be saved in clear text at {path.join(base_folder, "db_config.ini")}\n'
           f'Please input your db choice: [postgresql/sqlite]')
     db_choice = input()
+    db_config['general'] = {}
     if db_choice == 'sqlite':
-        db_config['general'] = {'db_type': db_choice}
-        database_location = path.join(base_folder, 'ezreal_core_schema.db')
+        db_config['general']['db_type'] = db_choice
         print(f'SQLite database setup complete.')
     elif db_choice == 'postgresql':
-        db_config['general'] = {'db_type': db_choice}
+        db_config['general']['db_type'] = db_choice
         db_config['connection_info'] = {}
         print(f'username:')
         db_config['connection_info']['username'] = getuser()
@@ -47,12 +47,13 @@ except FileNotFoundError:
         db_config.write(configfile)
 
 
-if db_config['general']['db_type'] == 'sqlite':
-    db_url = db_config['general']['db_type'] + ':///{}'.format(database_location)
-elif db_config['general']['db_type'] == 'postgresql':
-    db_url = db_config['general']['db_type'] + '://' + db_config['connection_info']['username'] + ':' \
-             + db_config['connection_info']['password'] + '@' + db_config['connection_info']['host'] \
-             + ':' + db_config['connection_info']['port'] + '/' + db_config['connection_info']['database']
+if db_config.get('general', 'db_type') == 'sqlite':
+    database_location = path.join(base_folder, 'ezreal_core_schema.db')
+    db_url = db_config.get('general', 'db_type') + ':///{}'.format(database_location)
+elif db_config.get('general', 'db_type') == 'postgresql':
+    db_url = db_config.get('general', 'db_type') + '://' + db_config.get('connection_info', 'username') + ':' \
+             + db_config.get('connection_info', 'password') + '@' + db_config.get('connection_info', 'host') \
+             + ':' + db_config.get('connection_info', 'port') + '/' + db_config.get('connection_info', 'database')
 
 engine = sqlalchemy.create_engine(db_url)
 
