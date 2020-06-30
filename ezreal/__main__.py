@@ -1,11 +1,11 @@
 import cassiopeia as cass
 from cassiopeia import Summoner
 from ezreal.utils import engine
-from ezreal.core.summoner import get_summoner_info
+from ezreal.core.query import read_summoner_info
 
 
 def print_summoner(name: str, region: str):
-    summoner = get_summoner_info(name, region)
+    summoner = read_summoner_info(name, region)
     print("Name:", summoner.name)
     print("ID:", summoner.id)
     print("Account ID:", summoner.account_id)
