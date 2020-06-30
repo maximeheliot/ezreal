@@ -4,7 +4,6 @@ from ezreal.utils import engine
 
 
 def print_summoner(name: str, region: str):
-    cass.set_riot_api_key("RGAPI-3458e491-3eb1-49f0-b077-afd3af8a1f55")
     summoner = Summoner(name=name, region=region)
     print("Name:", summoner.name)
     print("ID:", summoner.id)
