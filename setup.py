@@ -12,7 +12,7 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 setup(
     name='ezreal',
-    version='1.0a1',
+    version='1.0a2',
     description='An application of services.',
     long_description='Ezreal is a service distributor. '
                      'It exploits different tools and framework around the league of legends environment and gathers '
@@ -30,7 +30,7 @@ setup(
         'Programming Language :: Python :: 3.8',
     ],
     keywords='services, framework, tool, leagueoflegends, statistics',
-    packages=['ezreal'],
+    packages=["ezreal", "ezreal/core", "ezreal/utils"],
     python_requires='>=3.7, <4',
     install_requires=['cassiopeia',
                       'SQLAlchemy'],
