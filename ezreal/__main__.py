@@ -1,7 +1,7 @@
 import cassiopeia as cass
 from cassiopeia import Summoner
 from ezreal.utils import engine
-from ezreal.core.query import read_summoner_info
+from ezreal.core.query import read_summoner_info, read_matches_history
 
 
 def print_summoner(name: str, region: str):
@@ -18,6 +18,12 @@ def print_summoner(name: str, region: str):
     return summoner
 
 
+def print_match_history(name: str, region: str):
+    summoner = read_summoner_info(name, region)
+    match_history = read_matches_history(summoner, 20)
+    return match_history
+
+
 if __name__ == "__main__":
-    summoner = print_summoner("Kassout", "EUW")
+    summoner = print_match_history("Kassout", "EUW")
     # print(summoner)
